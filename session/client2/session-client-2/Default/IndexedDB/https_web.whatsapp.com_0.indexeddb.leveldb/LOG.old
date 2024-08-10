@@ -1,25 +1,25 @@
-2024/08/10-09:56:27.142 2310 Reusing MANIFEST C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/08/10-09:56:27.143 2310 Recovering log #128
-2024/08/10-09:56:27.230 2310 Reusing old log C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000128.log 
-2024/08/10-09:56:27.230 2310 Delete type=2 #127
-2024/08/10-09:56:36.273 2b04 Level-0 table #133: started
-2024/08/10-09:56:36.402 2b04 Level-0 table #133: 118397 bytes OK
-2024/08/10-09:56:36.418 2b04 Delete type=0 #128
-2024/08/10-09:56:36.425 2b04 Manual compaction at level-0 from '\x003\x00\x00\x00' @ 72057594037927935 : 1 .. '\x004\x00\x00\x00' @ 0 : 0; will stop at '\x004\x00\x00\x05' @ 149600 : 1
-2024/08/10-09:56:36.426 2b04 Compacting 1@0 + 1@1 files
-2024/08/10-09:56:36.979 2b04 Generated table #134@0: 76352 keys, 1503418 bytes
-2024/08/10-09:56:36.979 2b04 Compacted 1@0 + 1@1 files => 1503418 bytes
-2024/08/10-09:56:36.990 2b04 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/08/10-09:56:36.991 2b04 Delete type=2 #133
-2024/08/10-09:56:36.994 2b04 Manual compaction at level-0 from '\x004\x00\x00\x05' @ 149600 : 1 .. '\x004\x00\x00\x00' @ 0 : 0; will stop at (end)
-2024/08/10-09:56:37.204 1a1c Level-0 table #136: started
-2024/08/10-09:56:37.958 1a1c Level-0 table #136: 586 bytes OK
-2024/08/10-09:56:38.111 1a1c Delete type=2 #130
-2024/08/10-09:56:38.111 1a1c Delete type=0 #132
-2024/08/10-09:56:38.113 1934 Manual compaction at level-0 from '\x004\x00\x00\x00' @ 72057594037927935 : 1 .. '\x005\x00\x00\x00' @ 0 : 0; will stop at '\x004\x00\x00\x05' @ 149805 : 0
-2024/08/10-09:56:38.113 1934 Compacting 1@0 + 1@1 files
-2024/08/10-09:56:40.159 1934 Generated table #137@0: 76356 keys, 1503640 bytes
-2024/08/10-09:56:40.159 1934 Compacted 1@0 + 1@1 files => 1503640 bytes
-2024/08/10-09:56:40.322 1934 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/08/10-09:56:40.322 1934 Delete type=2 #136
-2024/08/10-09:56:40.323 1934 Manual compaction at level-0 from '\x004\x00\x00\x05' @ 149805 : 0 .. '\x005\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/08/10-10:06:59.953 29c0 Reusing MANIFEST C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/08/10-10:06:59.954 29c0 Recovering log #142
+2024/08/10-10:07:00.091 29c0 Reusing old log C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000142.log 
+2024/08/10-10:07:00.092 29c0 Delete type=2 #141
+2024/08/10-10:07:13.869 2bd0 Level-0 table #147: started
+2024/08/10-10:07:14.051 2bd0 Level-0 table #147: 245467 bytes OK
+2024/08/10-10:07:14.063 2bd0 Delete type=0 #142
+2024/08/10-10:07:14.064 2bd0 Manual compaction at level-0 from '\x007\x00\x00\x00' @ 72057594037927935 : 1 .. '\x008\x00\x00\x00' @ 0 : 0; will stop at '\x008\x00\x00\x05' @ 164285 : 1
+2024/08/10-10:07:14.065 2bd0 Compacting 1@0 + 1@1 files
+2024/08/10-10:07:15.879 2bd0 Generated table #148@0: 81169 keys, 1628224 bytes
+2024/08/10-10:07:15.879 2bd0 Compacted 1@0 + 1@1 files => 1628224 bytes
+2024/08/10-10:07:15.893 2bd0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/08/10-10:07:15.893 2bd0 Delete type=2 #147
+2024/08/10-10:07:15.894 2bd0 Manual compaction at level-0 from '\x008\x00\x00\x05' @ 164285 : 1 .. '\x008\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/08/10-10:07:15.899 2840 Level-0 table #150: started
+2024/08/10-10:07:16.128 2840 Level-0 table #150: 3627 bytes OK
+2024/08/10-10:07:16.206 2840 Delete type=2 #144
+2024/08/10-10:07:16.206 2840 Delete type=0 #146
+2024/08/10-10:07:16.263 2bd0 Manual compaction at level-0 from '\x008\x00\x00\x00' @ 72057594037927935 : 1 .. '\x009\x00\x00\x00' @ 0 : 0; will stop at '\x008\x00\x00\x05' @ 164470 : 0
+2024/08/10-10:07:16.263 2bd0 Compacting 1@0 + 1@1 files
+2024/08/10-10:07:18.070 2bd0 Generated table #151@0: 81227 keys, 1630656 bytes
+2024/08/10-10:07:18.070 2bd0 Compacted 1@0 + 1@1 files => 1630656 bytes
+2024/08/10-10:07:18.078 2bd0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/08/10-10:07:18.079 2bd0 Delete type=2 #150
+2024/08/10-10:07:18.080 2bd0 Manual compaction at level-0 from '\x008\x00\x00\x05' @ 164470 : 0 .. '\x009\x00\x00\x00' @ 0 : 0; will stop at (end)
