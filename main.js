@@ -32,6 +32,22 @@ bot1.on(`message_create`, async (ctx) => {
     return;
 })
 
+bot1.on(`call`, async (ctx) => {
+    var chat = await ctx.getChat()
+
+    if (chat.isGroup == false) {
+        var status = prop.get(`status_` + variables.phone[0])
+
+        if (status == 'off') {
+            var pesan = `⚠️ *Warning!*\nSaat ini ${variables.phone[0]} tidak menerima panggilan, Anda dapat menghubungi lagi nanti.`
+
+            await ctx.reject()
+            await helper.afkMsg(bot2, pesan, prop, `has_sent_call_`, ctx)
+        }
+    }
+    return;
+})
+
 bot1.on(`message`, async (ctx) => {
     var chat = await ctx.getChat()
 
@@ -39,26 +55,12 @@ bot1.on(`message`, async (ctx) => {
         var status = prop.get(`status_` + variables.phone[0])
 
         if (status == 'off') {
-            if (!prop.get(`has_sent_` + ctx.from)) {
-                var times = prop.get(`time_` + variables.phone[0])
+            var times = prop.get(`time_` + variables.phone[0])
+            var pesan = `👋 *Halo ${ctx._data.notifyName}!*`
+            pesan += `\nAnda baru saja menghubungi ${variables.phone[0]} yang saat ini tidak tersedia, tunggulah beberapa saat. Terimakasih!`
+            pesan += (times !== null) ? `\n⏳ AFK sejak: ${times}` : ``
 
-                var pesan = `👋 *Halo ${ctx._data.notifyName}!*`
-                pesan += `\nAnda baru saja menghubungi ${variables.phone[0]} yang saat ini tidak tersedia, tunggulah beberapa saat. Terimakasih!`
-                pesan += (times !== null) ? `\n⏳ AFK sejak: ${times}` : ``
-
-                await bot2.sendMessage(ctx.from, pesan)
-                prop.set(`has_sent_` + ctx.from)
-                var time = 20
-                var ints = timers[ctx.from] = setInterval(() => {
-                    time--;
-
-                    if (time <= 0) {
-                        clearInterval(ints)
-                        prop.read(`has_sent_` + ctx.from)
-                    }
-                }, 1000)
-                return
-            }
+            await helper.afkMsg(bot2, pesan, prop, 'has_sent_afk_', ctx)
         }
     }
     return
@@ -66,7 +68,19 @@ bot1.on(`message`, async (ctx) => {
 
 bot2.on(`call`, async (ctx) => {
     await ctx.reject()
-    await bot2.sendMessage(ctx.from, `⚠️ *Warning!*\nDo not call this bot. ${variables.bwMsg}`)
+    if (!prop.get(`has_sent_bwCall_` + ctx.from)) {
+        await bot2.sendMessage(ctx.from, `⚠️ *Warning!*\nDo not call this bot. ${variables.bwMsg}`)
+        prop.set(`has_sent_bwCall_` + ctx.from, true)
+        var time = 10
+        var ints = timers[ctx.from] = setInterval(async () => {
+            time--;
+
+            if (time <= 0) {
+                clearInterval(ints)
+                prop.read(`has_sent_bwCall_` + ctx.from)
+            }
+        }, 1000);
+    }
     return;
 })
 
@@ -74,7 +88,22 @@ bot2.on(`message`, async (ctx) => {
     var chat = await ctx.getChat()
 
     if (chat.isGroup == false) {
-        if (ctx.from !== `${variables.phone[0]}@c.us`) await bot2.sendMessage(ctx.from, `Sorry! ${variables.bwMsg}`)
+        if (ctx.from !== `${variables.phone[0]}@c.us`) {
+            if (!prop.get(`has_sent_bw_` + ctx.from)) {
+                await bot2.sendMessage(ctx.from, `Sorry! ${variables.bwMsg}`)
+                prop.set(`has_sent_bw_` + ctx.from, true)
+                var time = 10
+                var ints = timers[ctx.from] = setInterval(async () => {
+                    time--;
+
+                    if (time <= 0) {
+                        clearInterval(ints)
+                        prop.read(`has_sent_bw_` + ctx.from)
+                    }
+                }, 1000);
+            }
+            return;
+        }
 
         var pola = /afk$/i
         if (pola.exec(ctx.body)) {
