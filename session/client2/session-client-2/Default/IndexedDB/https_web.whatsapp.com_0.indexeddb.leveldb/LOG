@@ -1,25 +1,13 @@
-2024/08/10-10:09:41.613 20bc Reusing MANIFEST C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/08/10-10:09:41.614 20bc Recovering log #149
-2024/08/10-10:09:41.653 20bc Reusing old log C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000149.log 
-2024/08/10-10:09:41.654 20bc Delete type=2 #148
-2024/08/10-10:09:49.438 28c0 Level-0 table #154: started
-2024/08/10-10:09:49.462 28c0 Level-0 table #154: 101019 bytes OK
-2024/08/10-10:09:49.470 28c0 Delete type=0 #149
-2024/08/10-10:09:49.472 28c0 Manual compaction at level-0 from '\x009\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00:\x00\x00\x00' @ 0 : 0; will stop at '\x00:\x00\x00\x05' @ 169120 : 1
-2024/08/10-10:09:49.472 28c0 Compacting 1@0 + 1@1 files
-2024/08/10-10:09:50.561 28c0 Generated table #155@0: 83031 keys, 1669504 bytes
-2024/08/10-10:09:50.561 28c0 Compacted 1@0 + 1@1 files => 1669504 bytes
-2024/08/10-10:09:50.569 28c0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/08/10-10:09:50.569 28c0 Delete type=2 #154
-2024/08/10-10:09:50.570 28c0 Manual compaction at level-0 from '\x00:\x00\x00\x05' @ 169120 : 1 .. '\x00:\x00\x00\x00' @ 0 : 0; will stop at (end)
-2024/08/10-10:09:50.571 28c0 Level-0 table #157: started
-2024/08/10-10:09:50.624 28c0 Level-0 table #157: 249 bytes OK
-2024/08/10-10:09:50.636 28c0 Delete type=2 #151
-2024/08/10-10:09:50.636 28c0 Delete type=0 #153
-2024/08/10-10:09:50.638 28c0 Manual compaction at level-0 from '\x00:\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00;\x00\x00\x00' @ 0 : 0; will stop at '\x00:\x00\x00\x05' @ 169169 : 0
-2024/08/10-10:09:50.638 28c0 Compacting 1@0 + 1@1 files
-2024/08/10-10:09:51.261 28c0 Generated table #158@0: 83029 keys, 1669350 bytes
-2024/08/10-10:09:51.261 28c0 Compacted 1@0 + 1@1 files => 1669350 bytes
-2024/08/10-10:09:51.355 28c0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/08/10-10:09:51.355 28c0 Delete type=2 #157
-2024/08/10-10:09:51.372 28c0 Manual compaction at level-0 from '\x00:\x00\x00\x05' @ 169169 : 0 .. '\x00;\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/08/10-13:37:14.783 1930 Reusing MANIFEST C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/08/10-13:37:14.784 1930 Recovering log #178
+2024/08/10-13:37:14.928 1930 Reusing old log C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000178.log 
+2024/08/10-13:37:25.407 1c20 Level-0 table #183: started
+2024/08/10-13:37:25.485 1c20 Level-0 table #183: 298111 bytes OK
+2024/08/10-13:37:25.805 1c20 Delete type=0 #178
+2024/08/10-13:37:25.881 2dec Manual compaction at level-0 from '\x00B\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00C\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/08/10-13:37:41.051 1930 Compacting 1@1 + 1@2 files
+2024/08/10-13:37:50.669 1930 Generated table #184@1: 43685 keys, 1486955 bytes
+2024/08/10-13:37:50.669 1930 Compacted 1@1 + 1@2 files => 1486955 bytes
+2024/08/10-13:37:51.049 1930 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/08/10-13:37:52.781 1930 Delete type=2 #180
+2024/08/10-13:37:52.782 1930 Delete type=2 #183
