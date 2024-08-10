@@ -44,7 +44,7 @@ bot1.on(`message`, async (ctx) => {
 
                 var pesan = `👋 *Halo ${ctx._data.notifyName}!*`
                 pesan += `\nAnda baru saja menghubungi ${variables.phone[0]} yang saat ini tidak tersedia, tunggulah beberapa saat. Terimakasih!`
-                pesan += (times !== null) ? `\n⏳ Offline sejak: ${times}` : ``
+                pesan += (times !== null) ? `\n⏳ AFK sejak: ${times}` : ``
 
                 await bot2.sendMessage(ctx.from, pesan)
                 prop.set(`has_sent_` + ctx.from)
@@ -76,11 +76,11 @@ bot2.on(`message`, async (ctx) => {
     if (chat.isGroup == false) {
         if (ctx.from !== `${variables.phone[0]}@c.us`) await bot2.sendMessage(ctx.from, `Sorry! ${variables.bwMsg}`)
 
-        var pola = /off$/i
+        var pola = /afk$/i
         if (pola.exec(ctx.body)) {
             prop.set(`status_` + variables.phone[0], 'off')
             prop.set(`time_` + variables.phone[0], await helper.getTime())
-            return await bot2.sendMessage(ctx.from, `✅ *Success!*\nBerhasil mengatur status menjadi offline.`)
+            return await bot2.sendMessage(ctx.from, `✅ *Success!*\nBerhasil mengatur status menjadi AFK.`)
         }
 
         var pola = /^\/cek$/i
@@ -88,7 +88,7 @@ bot2.on(`message`, async (ctx) => {
             var status = prop.get(`status_` + variables.phone[0])
             var time = prop.get(`time_` + variables.phone[0])
 
-            var pesan = `🌡 *Status*\n${(status == 'off') ? `Saat ini Anda sedang offline.\n⏳ Offline sejak: ${time}` : `Anda sedang online.`}`
+            var pesan = `🌡 *Status*\n${(status == 'off') ? `Saat ini Anda sedang AFK.\n⏳ AFK sejak: ${time}` : `Anda sedang online.`}`
             return await bot2.sendMessage(ctx.from, pesan)
         }
     }
