@@ -1,6 +1,9 @@
 const { bot1, bot2 } = require('./main.js')
 const variables = require('./variables.js')
 
+bot1.initialize()
+bot2.initialize()
+
 // CLIENT READY HANDLER
 bot1.once('ready', () => {
     console.log(`Client 1 is ready!`)
@@ -36,8 +39,5 @@ bot1.on('change_state', (state) => {
 bot2.on('change_state', (state) => {
     console.log(`PERUBAHAN STATE CLIENT 2 - ${state}`)
 })
-
-bot1.initialize()
-bot2.initialize()
 
 module.exports = { bot1, bot2 }

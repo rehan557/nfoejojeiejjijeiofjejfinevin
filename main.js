@@ -33,17 +33,13 @@ bot1.on(`message_create`, async (ctx) => {
 })
 
 bot1.on(`call`, async (ctx) => {
-    var chat = await ctx.getChat()
+    var status = prop.get(`status_` + variables.phone[0])
 
-    if (chat.isGroup == false) {
-        var status = prop.get(`status_` + variables.phone[0])
+    if (status == 'off') {
+        var pesan = `⚠️ *Warning!*\nSaat ini ${variables.phone[0]} tidak menerima panggilan, Anda dapat menghubungi lagi nanti.`
 
-        if (status == 'off') {
-            var pesan = `⚠️ *Warning!*\nSaat ini ${variables.phone[0]} tidak menerima panggilan, Anda dapat menghubungi lagi nanti.`
-
-            await ctx.reject()
-            await helper.afkMsg(bot2, pesan, prop, `has_sent_call_`, ctx)
-        }
+        await ctx.reject()
+        await helper.afkMsg(bot2, pesan, prop, `has_sent_call_`, ctx)
     }
     return;
 })
@@ -52,6 +48,7 @@ bot1.on(`message`, async (ctx) => {
     var chat = await ctx.getChat()
 
     if (chat.isGroup == false) {
+        if (ctx.fromMe == true) return
         var status = prop.get(`status_` + variables.phone[0])
 
         if (status == 'off') {
@@ -105,7 +102,7 @@ bot2.on(`message`, async (ctx) => {
             return;
         }
 
-        var pola = /afk$/i
+        var pola = /(afk|off)/i
         if (pola.exec(ctx.body)) {
             prop.set(`status_` + variables.phone[0], 'off')
             prop.set(`time_` + variables.phone[0], await helper.getTime())

@@ -17,7 +17,7 @@ async function afkMsg(bot, text, prop, key, ctx) {
     var timers = {}
 
     if (!prop.get(key + ctx.from)) {
-        await bot.sendMessage(ctx.from, pesan)
+        await bot.sendMessage(ctx.from, text)
         prop.set(key + ctx.from)
         var time = 20
         var ints = timers[ctx.from] = setInterval(() => {

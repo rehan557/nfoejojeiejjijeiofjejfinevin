@@ -1,0 +1,25 @@
+2024/08/10-09:57:43.878 28e4 Reusing MANIFEST C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/08/10-09:57:43.879 28e4 Recovering log #135
+2024/08/10-09:57:43.920 28e4 Reusing old log C:\users\sulit\projects\whatsapp\my-bot\session\client2\session-client-2\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000135.log 
+2024/08/10-09:57:43.920 28e4 Delete type=2 #134
+2024/08/10-09:57:50.420 1ef8 Level-0 table #140: started
+2024/08/10-09:57:50.513 1ef8 Level-0 table #140: 93330 bytes OK
+2024/08/10-09:57:50.580 1ef8 Delete type=0 #135
+2024/08/10-09:57:50.582 1ef8 Manual compaction at level-0 from '\x005\x00\x00\x00' @ 72057594037927935 : 1 .. '\x006\x00\x00\x00' @ 0 : 0; will stop at '\x006\x00\x00\x05' @ 154237 : 1
+2024/08/10-09:57:50.583 1ef8 Compacting 1@0 + 1@1 files
+2024/08/10-09:57:51.392 1ef8 Generated table #141@0: 77859 keys, 1538898 bytes
+2024/08/10-09:57:51.392 1ef8 Compacted 1@0 + 1@1 files => 1538898 bytes
+2024/08/10-09:57:51.398 1ef8 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/08/10-09:57:51.399 1ef8 Delete type=2 #140
+2024/08/10-09:57:51.401 1ef8 Manual compaction at level-0 from '\x006\x00\x00\x05' @ 154237 : 1 .. '\x006\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/08/10-09:57:51.404 1ef8 Level-0 table #143: started
+2024/08/10-09:57:51.423 1ef8 Level-0 table #143: 5211 bytes OK
+2024/08/10-09:57:51.434 1ef8 Delete type=2 #137
+2024/08/10-09:57:51.434 1ef8 Delete type=0 #139
+2024/08/10-09:57:51.436 1ef8 Manual compaction at level-0 from '\x006\x00\x00\x00' @ 72057594037927935 : 1 .. '\x007\x00\x00\x00' @ 0 : 0; will stop at '\x006\x00\x00\x05' @ 154507 : 0
+2024/08/10-09:57:51.437 1ef8 Compacting 1@0 + 1@1 files
+2024/08/10-09:57:51.916 1ef8 Generated table #144@0: 77949 keys, 1542669 bytes
+2024/08/10-09:57:51.916 1ef8 Compacted 1@0 + 1@1 files => 1542669 bytes
+2024/08/10-09:57:52.003 1ef8 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/08/10-09:57:52.004 1ef8 Delete type=2 #143
+2024/08/10-09:57:52.006 215c Manual compaction at level-0 from '\x006\x00\x00\x05' @ 154507 : 0 .. '\x007\x00\x00\x00' @ 0 : 0; will stop at (end)
