@@ -13,27 +13,28 @@ async function getTime() {
     return `${day}/${month}/${year} ${hours}:${minutes}`
 }
 
-async function afkMsg(bot, text, prop, key, ctx) {
+async function sendMsg(sock, text, prop, key, from, msg) {
     var timers = {}
 
-    if (!prop.get(key + ctx.from)) {
-        await bot.sendMessage(ctx.from, text)
-        prop.set(key + ctx.from)
-        var time = 20
-        var ints = timers[ctx.from] = setInterval(() => {
+    await sock.readMessages([ msg.key ])
+    if (!prop.get(key + from)) {
+        await sock.sendMessage(from, { text: text })
+        prop.set(key + from)
+        var time = variables.awaitTime
+        var ints = timers[from] = setInterval(() => {
             time--;
 
             if (time <= 0) {
                 clearInterval(ints)
-                prop.read(key + ctx.from)
+                prop.read(key + from)
             }
         }, 1000)
-        return
+        return;
     }
 }
 
 const helper = {
     getTime,
-    afkMsg
+    sendMsg
 }
 module.exports = helper
