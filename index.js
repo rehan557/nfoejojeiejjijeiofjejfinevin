@@ -1,18 +1,14 @@
+const { connectToWhatsApp } = require('./main.js')
 const variables = require('./variables.js')
 const helper = require('./components/helper/helper.js')
 const proper = require('properties-reader')
+
 const prop = proper('')
-const { connectToWhatsApp } = require('./main.js')
 const timers = {}
 
 async function handler() {
-    var sock1 = await connectToWhatsApp(1, './session/client-1', variables.phone[0])
-    var sock2 = await connectToWhatsApp(2, './session/client-2', variables.phone[1])
-
-    sock1.ev.removeAllListeners(`messages.upsert`)
-    sock2.ev.removeAllListeners(`messages.upsert`)
-    sock1.ev.removeAllListeners(`call`)
-    sock2.ev.removeAllListeners(`call`)
+    const sock1 = await connectToWhatsApp(1, './session/client-1', variables.phone[0])
+    const sock2 = await connectToWhatsApp(2, './session/client-2', variables.phone[1])
 
     sock1.ev.on(`messages.upsert`, async (message) => {
         var msg = message.messages[0]
@@ -32,7 +28,7 @@ async function handler() {
         var status = prop.get(`status_` + variables.phone[0])
 
         if (status == 'off') {
-            var time = prop.get(`time_` + variables.phone[0])
+            var time = await helper.timeAgo(prop.get(`time_` + variables.phone[0]))
             var pesan = `👋 *Halo ${msg.pushName}!*`
             pesan += `\nAnda baru-baru saja menghubungi ${variables.phone[0]} yang saat ini tidak tersedia, Anda akan mendapat pesan balasan saat dia kembali online. Terimakasih!`
             pesan += `\n⏳ AFK sejak: ${time}.`
@@ -52,7 +48,10 @@ async function handler() {
         var messageContent = msg.message.conversation ? msg.message.conversation : msg.message.extendedTextMessage?.text;
 
         await sock2.readMessages([ msg.key ])
-        if (from == `${variables.phone[1]}@s.whatsapp.net`) return true
+        if (msg.message.protocolMessage) {
+            var botKey = msg.message.protocolMessage.key.remoteJid ?? from
+        }
+        if (botKey == `${variables.phone[1]}@s.whatsapp.net`) return true
         if (from !== `${variables.phone[0]}@s.whatsapp.net`) {
             if (!prop.get(`sended_call_` + from)) {
                 await helper.sendMsg(sock2, `Sorry! ${variables.bwMsg}`, prop, `has_sent_bw_`, from, msg)
@@ -102,8 +101,11 @@ async function handler() {
             if (!prop.get(code + from)) {
                 prop.set(code + from, true)
                 prop.set(`sended_call_` + from, `call`)
+
+                var time = await helper.timeAgo(prop.get(`time_` + variables.phone[0]))
                 var pesan = `⚠️ *Warning!*`
                 pesan += `\n${variables.phone[0]} tidak tersedia untuk saat ini, cobalah untuk menghubunginya kembali nanti. Terimakasih!`
+                pesan += `\n⏳ AFK sejak: ${time}.`
                 await sock2.sendMessage(from, { text: pesan })
                 var ints = timers[from] = setInterval(() => {
                     callTime--;

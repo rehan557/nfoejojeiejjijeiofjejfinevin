@@ -1,29 +1,43 @@
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
 const pino = require('pino').default;
-
+const NodeCache = require('node-cache')
 const fs = require('fs');
+const variables = require('./variables');
+
 const logger = pino(fs.createWriteStream('./logs.txt'));
 
 async function connectToWhatsApp(clientNumber, authFolder, phoneNumber) {
     const { state, saveCreds } = await useMultiFileAuthState(authFolder);
+    const { version } = await fetchLatestBaileysVersion()
+    const msgRetryCounterCache = new NodeCache()
 
     const sock = makeWASocket({
+        version,
         auth: state,
-        printQRInTerminal: true,
-        markOnlineOnConnect: true,
+        keepAliveIntervalMs: 50000,
+        printQRInTerminal: false,
         logger: logger,
-        defaultQueryTimeoutMs: undefined
+        browser: ['ubuntu', 'chrome', ''],
+        generateHighQualityLinkPreview: true,
+        msgRetryCounterCache: msgRetryCounterCache,
+        syncFullHistory: true,
+        emitOwnEvents: true,
+        defaultQueryTimeoutMs: 0
     });
     sock.ev.on('creds.update', saveCreds);
 
     sock.ev.on('connection.update', async (update) => {
-        const { connection, lastDisconnect, qr } = update;
+        const { connection, lastDisconnect } = update;
 
         if (connection === 'connecting') {
-            if (qr) {
-                console.log(`QR UNTUK CLIENT ${clientNumber}`)
+            if (!sock.authState.creds.registered) {
+                console.log(`Memproses klien ${clientNumber}...`)
+                setTimeout(async () => {
+                    const pairCode = await sock.requestPairingCode(phoneNumber.trim());
+                    console.log(`Pairing code untuk klien ${clientNumber} (${phoneNumber}) = ${pairCode}`)
+                }, 5000);
             } else {
-                console.log(`MENGHUBUNGKAN CLIENT ${clientNumber}...`)
+                console.log(`Menghubungkan klien ${clientNumber}...`)
             }
         } else if (connection === 'close') {
             const shouldReconnect = (lastDisconnect?.error)?.output?.statusCode !== DisconnectReason.loggedOut;
@@ -40,6 +54,10 @@ async function connectToWhatsApp(clientNumber, authFolder, phoneNumber) {
         }
     });
 
+    sock.ev.removeAllListeners('messages.upsert')
+    sock.ev.removeAllListeners('call')
+
     return sock;
 }
+
 module.exports = { connectToWhatsApp }

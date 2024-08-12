@@ -13,6 +13,42 @@ async function getTime() {
     return `${day}/${month}/${year} ${hours}:${minutes}`
 }
 
+async function timeAgo(dateString) {
+    var [day, month, year, hrs, mnts] = dateString.match(/\d+/g).map(Number);
+    var fullYear = 2000 + year;
+    var date = new Date(fullYear, month - 1, day, hrs, mnts);
+    var rtf = new Intl.RelativeTimeFormat('id', { numeric: 'auto' });
+    var now = new Date();
+    var seconds = Math.round((now - date) / 1000);
+    
+    if (seconds < 60) {
+        return rtf.format(-seconds, 'second');
+    }
+
+    var minutes = Math.round(seconds / 60);
+    if (minutes < 60) {
+        return rtf.format(-minutes, 'minute');
+    }
+
+    var hours = Math.round(minutes / 60);
+    if (hours < 24) {
+        return rtf.format(-hours, 'hour');
+    }
+
+    var days = Math.round(hours / 24);
+    if (days < 30) {
+        return rtf.format(-days, 'day');
+    }
+
+    var months = Math.round(days / 30);
+    if (months < 12) {
+        return rtf.format(-months, 'month');
+    }
+
+    var years = Math.round(days / 365);
+    return rtf.format(-years, 'year');
+}
+
 async function sendMsg(sock, text, prop, key, from, msg) {
     var timers = {}
 
@@ -35,6 +71,7 @@ async function sendMsg(sock, text, prop, key, from, msg) {
 
 const helper = {
     getTime,
-    sendMsg
+    sendMsg,
+    timeAgo
 }
 module.exports = helper

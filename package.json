@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.5",
+    "node-cache": "^5.1.2",
     "pino": "^9.3.2",
     "properties-reader": "^2.3.0"
   },
