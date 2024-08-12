@@ -7,8 +7,8 @@ const prop = proper('')
 const timers = {}
 
 async function handler() {
-    const sock1 = await connectToWhatsApp(1, './session/client-1', variables.phone[0])
-    const sock2 = await connectToWhatsApp(2, './session/client-2', variables.phone[1])
+    const sock1 = await connectToWhatsApp(1, `./session/client-1`, variables.phone[0])
+    const sock2 = await connectToWhatsApp(2, `./session/client-2`, variables.phone[1])
 
     sock1.ev.on(`messages.upsert`, async (message) => {
         var msg = message.messages[0]

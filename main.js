@@ -2,14 +2,28 @@ const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLat
 const pino = require('pino').default;
 const NodeCache = require('node-cache')
 const fs = require('fs');
-const variables = require('./variables');
 
-const logger = pino(fs.createWriteStream('./logs.txt'));
+const logger = pino({ level: 'silent' });
+/*const deta = Deta(variables.detaKey);
+const sessionsDB = deta.Base('session');
+
+async function saveStateToDeta(clientNumber, state) {
+    await sessionsDB.put({ key: `client-${clientNumber}`, state });
+}
+
+async function getStateFromDeta(clientNumber) {
+    const session = await sessionsDB.get(`client-${clientNumber}`);
+    return session ? session.state : null;
+}
+
+async function deleteStateFromDeta(clientNumber) {
+    await sessionsDB.delete(`client-${clientNumber}`);
+}*/
 
 async function connectToWhatsApp(clientNumber, authFolder, phoneNumber) {
     const { state, saveCreds } = await useMultiFileAuthState(authFolder);
-    const { version } = await fetchLatestBaileysVersion()
-    const msgRetryCounterCache = new NodeCache()
+    const { version } = await fetchLatestBaileysVersion();
+    const msgRetryCounterCache = new NodeCache();
 
     const sock = makeWASocket({
         version,
@@ -24,20 +38,23 @@ async function connectToWhatsApp(clientNumber, authFolder, phoneNumber) {
         emitOwnEvents: true,
         defaultQueryTimeoutMs: 0
     });
-    sock.ev.on('creds.update', saveCreds);
+
+    sock.ev.on('creds.update', async () => {
+        saveCreds();
+    });
 
     sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update;
 
         if (connection === 'connecting') {
             if (!sock.authState.creds.registered) {
-                console.log(`Memproses klien ${clientNumber}...`)
+                console.log(`Memproses klien ${clientNumber}...`);
                 setTimeout(async () => {
                     const pairCode = await sock.requestPairingCode(phoneNumber.trim());
-                    console.log(`Pairing code untuk klien ${clientNumber} (${phoneNumber}) = ${pairCode}`)
+                    console.log(`Pairing code untuk klien ${clientNumber} (${phoneNumber}) = ${pairCode}`);
                 }, 5000);
             } else {
-                console.log(`Menghubungkan klien ${clientNumber}...`)
+                console.log(`Menghubungkan klien ${clientNumber}...`);
             }
         } else if (connection === 'close') {
             const shouldReconnect = (lastDisconnect?.error)?.output?.statusCode !== DisconnectReason.loggedOut;
@@ -47,15 +64,15 @@ async function connectToWhatsApp(clientNumber, authFolder, phoneNumber) {
                 connectToWhatsApp(clientNumber, authFolder, phoneNumber);
             } else {
                 console.log(`Client ${clientNumber} logged out.`);
-                fs.rmdirSync(authFolder, { recursive: true });
+                fs.rmdirSync(authFolder, { recursive: true })
             }
         } else if (connection === 'open') {
             console.log(`Koneksi berhasil dibuka untuk Client ${clientNumber}`);
         }
     });
 
-    sock.ev.removeAllListeners('messages.upsert')
-    sock.ev.removeAllListeners('call')
+    sock.ev.removeAllListeners('messages.upsert');
+    sock.ev.removeAllListeners('call');
 
     return sock;
 }
